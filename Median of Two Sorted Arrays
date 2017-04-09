@@ -1,0 +1,60 @@
+Median of Two Sorted Arrays：（找中位数）
+There are two sorted arrays nums1 and nums2 of size m and n respectively.
+
+Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
+
+Example 1:
+nums1 = [1, 3]
+nums2 = [2]
+
+The median is 2.0
+Example 2:
+nums1 = [1, 2]
+nums2 = [3, 4]
+
+The median is (2 + 3)/2 = 2.5
+
+Solution:
+public class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int l = (nums1.length+nums2.length+1)/2;	//left half of the combined median
+        int r = (nums1.length+nums2.length+2)/2;	//right half of the combined median
+        
+        // If the nums1.length + nums2.length is odd, the 2 function will return the same number
+        // Else if nums1.length + nums2.length is even, 
+        //the 2 function will return the left number and right number that make up a median
+        
+        return (getMedian(nums1,nums2,0,0,l)+getMedian(nums1,nums2,0,0,r))/2.0;
+    }
+    public int getMedian(int[] A,int[] B,int astart,int bstart,int k){
+    	
+    	// If nums1 is exhausted, return kth number in nums2
+        if(astart>A.length-1) return B[bstart+k-1];
+        
+        // If nums2 is exhausted, return kth number in nums1
+        if(bstart>B.length-1) return A[astart+k-1];
+        
+        // If k == 1, return the first number
+        // Since nums1 and nums2 is sorted, the smaller one among the start point of nums1 and nums2 is the first one
+        if(k==1) return Math.min(A[astart],B[bstart]);
+        
+        int amid = Integer.MAX_VALUE;
+        int bmid = Integer.MAX_VALUE;
+        if(astart+k/2-1<A.length) amid = A[astart+k/2-1];
+        if(bstart+k/2-1<B.length) bmid = B[bstart+k/2-1];
+        
+        // Throw away half of the array from nums1 or nums2. And cut k in half
+        if(amid<bmid){
+            return helper(A,B,astart+k/2,bstart,    k-k/2);		//nums1.right + nums2
+        }else{
+            return helper(A,B,astart,    bstart+k/2,k-k/2);		//nums1 + nums2.right
+        }
+    }
+}
+
+Explanation:
+基本思路是每次通过查看两个数组的第k/2大的数(假设是A[k/2],B[k/2])，如果两个A[k/2]=B[k/2]，
+说明当前这个数即为两个数组剩余元素的第k大的数，如果A[k/2]>B[k/2], 那么说明B的前k/2个元素都不是我们要的第k大的数，反之则排除A的前k/2个，
+如此每次可以排除k/2个元素，最终k=1时即为结果。
+总的时间复杂度为O(logk),空间复杂度也是O(logk)，即为递归栈大小。在这个题目中因为k=(m+n)/2,所以复杂度是O(log(m+n))。
+
