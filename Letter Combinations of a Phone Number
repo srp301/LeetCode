@@ -1,0 +1,43 @@
+Letter Combinations of a Phone Number:
+Given a digit string, return all possible letter combinations that the number could represent.
+
+A mapping of digit to letters (just like on the telephone buttons) is given below.
+ "0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"
+  0    1     2      3      4      5      6       7      8       9
+Input:Digit string "23"
+Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+
+Solution:
+/**
+ * @param {string} digits
+ * @return {string[]}
+ */
+var letterCombinations = function(digits) {
+    a = [['0'],['1'],
+         ['a', 'b', 'c'],
+         ['d', 'e', 'f'],
+         ['g', 'h', 'i'],
+         ['j', 'k', 'l'],
+         ['m', 'n', 'o'],
+         ['p', 'q', 'r', 's'],
+         ['t', 'u', 'v'],
+         ['w', 'x', 'y', 'z']
+        ];
+    let rtn = [];
+    if(digits.length===0){
+        return rtn;
+    }
+    rtn = a[parseInt(digits.charAt(0))];
+    for(let i = 1;i<digits.length;i++){
+        let arr = [];
+        num = parseInt(digits.charAt(i));
+        for(let j = 0;j<rtn.length;j++){
+            for(let k = 0;k<a[num].length;k++){
+                arr.push(rtn[j]+a[num][k]);
+            }
+        }
+        rtn = arr;
+        arr = [];
+    }    
+    return rtn;
+};
