@@ -1,0 +1,57 @@
+Remove Nth Node From End of List:
+Given a linked list, remove the nth node from the end of list and return its head.
+
+For example,
+
+   Given linked list: 1->2->3->4->5, and n = 2.
+
+   After removing the second node from the end, the linked list becomes 1->2->3->5.
+Note:
+Given n will always be valid.
+Try to do this in one pass.
+
+Solution:
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function(head, n) {
+    let nextnode , num=1, i=1;
+    nextnode = head;
+    while(nextnode.next !== null){
+        nextnode = nextnode.next;
+        num++;
+    }
+    nextnode = head;
+    if(head.next === null){
+        head = null;
+    }
+    while(nextnode.next !== null){
+        if(num-n === 0){
+            head = nextnode.next;
+            break;
+        }
+        if(i == num-n){
+            if(n == 1){
+                nextnode.next = null;
+                break;
+            }
+            else{
+            nextnode.next = nextnode.next.next;
+            break;
+            }
+        }else{
+            nextnode = nextnode.next;
+            i++;
+        }
+    }
+    return head;
+};
