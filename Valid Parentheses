@@ -1,0 +1,33 @@
+Valid Parentheses:
+Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+
+Solution:
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function(s) {
+    let rtn = [];
+    if(s.length===0) return false;
+    for(let i = 0;i<s.length;i++){
+        let c = s.charAt(i);
+        switch(c){
+            case '(':
+                rtn.push(')');
+                break;
+            case '[':
+                rtn.push(']');
+                break;
+            case '{':
+                rtn.push('}');
+                break;
+            case ')':
+            case ']':
+            case '}':
+                if(rtn.length===0||rtn.pop()!==c) return false;
+        }
+    }
+    return rtn.length===0;
+};
