@@ -1,0 +1,27 @@
+Implement strStr():
+
+Returns the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+Solution:
+/**
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+var strStr = function(haystack, needle) {
+    if(needle==="") return 0;
+    let hl = haystack.length,
+        nl = needle.length;
+    if(hl<nl) return -1;
+    for(let i = 0;i<hl;i++){
+        for(let j = 0;j<nl;j++){
+            if(i+j>=hl) return -1;
+            if(haystack.charAt(i+j)!==needle.charAt(j)){
+                break;
+            }else{
+                if(j===nl-1) return i;
+            }
+        }
+    }
+    return -1;
+};
