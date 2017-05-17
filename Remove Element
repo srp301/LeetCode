@@ -1,0 +1,35 @@
+Remove Element:
+
+Given an array and a value, remove all instances of that value in place and return the new length.
+
+Do not allocate extra space for another array, you must do this in place with constant memory.
+
+The order of elements can be changed. It doesn't matter what you leave beyond the new length.
+
+Example:
+Given input array nums = [3,2,2,3], val = 3
+
+Your function should return length = 2, with the first two elements of nums being 2.
+
+分析：
+	实际上题目的意思是要我们：
+	1、找出与val值不同的元素的个数rtn；
+	2、在不用新数组的情况下修改原来的数组使之成为前rtn个元素为原数组的不等于val值的元素；
+	解法为双指针法：第一个指针遍历原数组，第二个指针指向数组中等于val值的元素的下一个位置。
+
+Solution:
+/**
+ * @param {number[]} nums
+ * @param {number} val
+ * @return {number}
+ */
+var removeElement = function(nums, val) {
+    let rtn = 0;
+    for(let i = 0;i<nums.length;i++){
+        if(nums[i]!==val){
+            nums[rtn] = nums[i];
+            rtn++;
+        }
+    }
+    return rtn;
+};
