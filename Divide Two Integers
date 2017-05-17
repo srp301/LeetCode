@@ -1,0 +1,40 @@
+Divide Two Integers:
+Divide two integers without using multiplication, division and mod operator.
+
+If it is overflow, return MAX_INT.
+
+Tips:
+	对于整数的位运算（比如移位等操作），JavaScript仅支持32位整型数，也即从-2147483648到+2147483647之间的整数。
+
+Solution:
+/**
+ * @param {number} dividend
+ * @param {number} divisor
+ * @return {number}
+ */
+var divide = function(dividend, divisor) {
+    let sign = 1;
+    if(divisor===0) return 2147483647;
+    if((dividend<0 && divisor>0)||(dividend>0 && divisor<0)){
+        sign = -1;
+    }
+    dividend = Math.abs(dividend);
+    divisor = Math.abs(divisor);
+    if(dividend===0 || dividend<divisor) return 0;
+    let result = myDivide(dividend,divisor);
+    if(result>2147483647){
+        return sign>0 ? 2147483647:-2147483648;
+    }
+    return sign*result;
+};
+
+function myDivide(dividend,divisor){
+    if(dividend<divisor) return 0;
+    let num = 1,
+        sum = divisor;
+    while((sum+sum)<=dividend){
+        num += num;
+        sum += sum;
+    }
+    return num+myDivide(dividend-sum,divisor);
+}
