@@ -12,6 +12,7 @@ Given input array nums = [3,2,2,3], val = 3
 Your function should return length = 2, with the first two elements of nums being 2.
 
 分析：
+	类似于找一个子数组，所以不必担心数组长度溢出的问题；
 	实际上题目的意思是要我们：
 	1、找出与val值不同的元素的个数rtn；
 	2、在不用新数组的情况下修改原来的数组使之成为前rtn个元素为原数组的不等于val值的元素；
