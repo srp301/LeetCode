@@ -1,0 +1,46 @@
+Generate Parentheses:
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+For example, given n = 3, a solution set is:
+
+[
+  "((()))",
+  "(()())",
+  "(())()",
+  "()(())",
+  "()()()"
+]
+
+Solution:
+/**
+ * @param {number} n
+ * @return {string[]}
+ */
+var generateParenthesis = function(n) {
+    let start = 0;
+    let end = 0;
+    let str = "";
+    let rtn = [];
+    backtracking(rtn,str,start,end,n);
+    return rtn;
+};
+function backtracking(rtn,str,start,end,n){
+    if(str.length===n*2){
+        rtn.push(str);
+        return;
+    }
+    if(start<n){
+        backtracking(rtn,str+"(",start+1,end,n);
+    }
+    if(end<start){
+        backtracking(rtn,str+")",start,end+1,n);
+    }
+}
+
+/*
+回溯算法：
+	回溯法按深度优先策略搜索问题的解空间树。
+	首先从根节点出发搜索解空间树，当算法搜索至解空间树的某一节点时，先利用剪枝函数判断该节点是否可行（即能得到问题的解）。
+	如果不可行，则跳过对该节点为根的子树的搜索，逐层向其祖先节点回溯；否则，进入该子树，继续按深度优先策略搜索。
+	具体请见http://blog.csdn.net/jarvischu/article/details/16067319
+ */
