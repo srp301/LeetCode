@@ -50,6 +50,7 @@ function swap(a,i,j){
 
 分析：
 	原本41行用的是concat方法，但是不通过，因为concat方法返回的数组是新创建的，不符合题目中不能分配额外的内存这一项。
+	详细解题过程可以参考：https://yq.aliyun.com/articles/863
 
 
 
