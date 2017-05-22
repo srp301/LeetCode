@@ -1,0 +1,49 @@
+Search for a Range:
+Given an array of integers sorted in ascending order, 
+find the starting and ending position of a given target value.
+
+Your algorithm's runtime complexity must be in the order of O(log n).
+
+If the target is not found in the array, return [-1, -1].
+
+分析：
+	二分法的扩展，切半条件由原来的大于和小于变为了大于、小于、等于，等于的时候再将切分数的下标进行+1与-1的查找，直到不相等为止。
+
+For example,
+Given [5, 7, 7, 8, 8, 10] and target value 8,
+return [3, 4].
+
+Solution:
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var searchRange = function(nums, target) {
+    let lo = 0,
+        hi = nums.length-1,
+        m,newL,newR;
+    let rtn = [-1,-1];
+    while(lo<=hi){
+        m = parseInt((lo+hi)/2);
+        if(nums[m]<target){
+            lo = m+1;
+        }else if(nums[m]>target){
+            hi = m-1;
+        }else if(nums[m]===target){
+            rtn[0] = m;
+            rtn[1] = m;
+            newL = m,newR = m;
+            while(nums[newL]===target){
+                rtn[0] = newL;
+                newL--;
+            }
+            while(nums[newR]===target){
+                rtn[1] = newR;
+                newR++;
+            }
+            break;
+        }
+    }
+    return rtn;
+};
