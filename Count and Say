@@ -1,0 +1,40 @@
+Count and Say:
+The count-and-say sequence is the sequence of integers beginning as follows:
+1, 11, 21, 1211, 111221, ...
+
+1 is read off as "one 1" or 11.
+11 is read off as "two 1s" or 21.
+21 is read off as "one 2, then one 1" or 1211.
+Given an integer n, generate the nth sequence.
+
+Note: The sequence of integers will be represented as a string.
+
+分析：
+	题意是n=1时输出字符串1；n=2时，数上次字符串中的数值个数，因为上次字符串有1个1，所以输出11；n=3时，由于上次字符是11，有2个1，所以输出21；
+	n=4时，由于上次字符串是21，有1个2和1个1，所以输出1211。依次类推，写个countAndSay(n)函数返回字符串。
+
+Solution:
+/**
+ * @param {number} n
+ * @return {string}
+ */
+var countAndSay = function(n) {
+    return cas(n);
+};
+function cas(n){
+    if(n===1){
+        return 1;
+    }
+    let count = 1;
+    let str = cas(n-1)+"*",
+        s = "";
+    for(let i = 0;i<str.length-1;i++){
+        if(str.charAt(i)!==str.charAt(i+1)){
+            s = s + count + str.charAt(i);
+            count = 1;
+        }else{
+            count++;
+        }
+    }
+    return s;
+}
