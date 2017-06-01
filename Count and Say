@@ -19,7 +19,7 @@ Solution:
  * @return {string}
  */
 var countAndSay = function(n) {
-    return cas(n);
+    return cas(n)+"";
 };
 function cas(n){
     if(n===1){
