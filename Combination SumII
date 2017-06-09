@@ -1,0 +1,56 @@
+Combination SumII:
+Given a collection of candidate numbers (C) and a target number (T), 
+find all unique combinations in C where the candidate numbers sums to T.
+
+Each number in C may only be used once in the combination.
+
+Note:
+All numbers (including target) will be positive integers.
+The solution set must not contain duplicate combinations.
+For example, given candidate set [10, 1, 2, 7, 6, 1, 5] and target 8, 
+A solution set is: 
+[
+  [1, 7],
+  [1, 2, 5],
+  [2, 6],
+  [1, 1, 6]
+]
+
+Solution:
+/**
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
+var combinationSum2 = function(candidates, target) {
+    candidates.sort(function(a,b){
+        if(a>b){
+            return 1;
+        }else if(a<b){
+            return -1;
+        }
+    });
+    let rtnall = [];
+    let rtn = [];
+    let arr = {};
+    cs2(rtn,candidates,target,0);
+    function cs2(rtn,candidates,target,index){
+        if(target<0){
+            return;
+        }else if(target===0){
+            if(arr[rtn]!==1){
+                rtnall.push(rtn);
+                arr[rtn]=1;
+            }
+        }else if(target>0){
+            for(let i = index;i<candidates.length;i++){
+                let rtn1 = rtn.concat();
+                if(candidates[i]<=target){
+                    rtn1.push(candidates[i]);
+                    cs2(rtn1,candidates,(target-candidates[i]),i+1);
+                }
+            }
+        }
+    }
+    return rtnall;
+};
