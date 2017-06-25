@@ -1,0 +1,48 @@
+Multiply Strings:
+Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2.
+
+Note:
+
+The length of both num1 and num2 is < 110.
+Both num1 and num2 contains only digits 0-9.
+Both num1 and num2 does not contain any leading zero.
+You must not use any built-in BigInteger library or convert the inputs to integer directly.
+分析：
+	计算两个字符串表示的非负大整数的乘积，结果仍然用字符串表示。
+	这道题还是有一点难度的。两个数如果直接乘是会溢出的，所以每次都要两个单个数字相乘，最大81，并不会溢出。
+	我们知道笔算的整数乘积，按照被乘数逐位与乘数求积，保存进位；当被乘数换位时，结果递增一个数量级，与先前结果求和。
+	在笔算的时候一般我们从地位到高位算，那么我们把字符串翻转之后就能更简便地计算结果，最后再将结果翻转即可。
+
+Solution:
+/**
+ * @param {string} num1
+ * @param {string} num2
+ * @return {string}
+ */
+var multiply = function(num1, num2) {
+    if(num1==="0"||num2==="0"){
+        return "0";
+    }
+    let carry = 0;
+    num1 = num1.split("").reverse().join("");
+    num2 = num2.split("").reverse().join("");
+    let rtnall =[];
+    let bignum = "";
+    for(let i = 0;i<num1.length;i++){
+        for(let j = 0;j<num2.length;j++){
+            if(!rtnall[i+j]){
+                rtnall[i+j] = 0;
+            }
+            rtnall[i+j] += parseInt(num1[i])*parseInt(num2[j]);
+        }
+    }
+    for(let m = 0;m<rtnall.length;m++){
+        let num = rtnall[m]+carry;
+        rtnall[m] = num%10;
+        carry = parseInt(num/10);
+    }
+    if(carry!==0){
+        rtnall[rtnall.length] = carry;
+    }
+    return rtnall.reverse().join("");
+};
