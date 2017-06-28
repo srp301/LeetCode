@@ -1,0 +1,37 @@
+Rotate Image:
+You are given an n x n 2D matrix representing an image.
+
+Rotate the image by 90 degrees (clockwise).
+
+Follow up:
+Could you do this in-place?
+
+Solution:
+/**
+ * @param {number[][]} matrix
+ * @return {void} Do not return anything, modify matrix in-place instead.
+ */
+var rotate = function(matrix) {
+    let n = matrix[0].length-1;
+    if(matrix[0].length%2 === 0){
+        xlen = matrix[0].length/2;
+        ylen = matrix[0].length/2;
+    }else{
+         xlen = matrix[0].length/2;
+         ylen = (matrix[0].length-1)/2;
+    }
+    function swap(a,i,j){
+        let no2 = a[j][n-i];
+        let no3 = a[n-i][n-j];
+        let no4 = a[n-j][i];
+        a[j][n-i] = a[i][j];
+        a[n-i][n-j] = no2;
+        a[n-j][i] = no3;
+        a[i][j] = no4;
+    }
+    for(let i = 0;i<xlen;i++){
+        for(let j = 0;j<ylen;j++){
+            swap(matrix,i,j);
+        }
+    }
+};
