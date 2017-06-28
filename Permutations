@@ -1,0 +1,48 @@
+Permutations:
+Given a collection of distinct numbers, return all possible permutations.
+
+For example,
+[1,2,3] have the following permutations:
+[
+  [1,2,3],
+  [1,3,2],
+  [2,1,3],
+  [2,3,1],
+  [3,1,2],
+  [3,2,1]
+]
+分析：
+	使用深度优先搜索（DFS）方法来做
+	注意js里数组要用concat方法来拷贝一份，否则都是指向的数组的引用，若没有30行的那段复制，则在40行的pop方法执行时，
+	最终的rtnall也会改变，因为rtn是数组的引用，而不是数组。
+
+Solution:
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permute = function(nums) {
+    let rtnall = [];
+    let rtn = [];
+    let temp = {};
+    shenduyouxian(rtn,temp);
+    function shenduyouxian(rtn,temp){
+    	if(rtn.length === nums.length){
+    	    let rtn1 = rtn.concat();
+    		rtnall.push(rtn1);
+    	}else{
+    		for(let i = 0;i<nums.length;i++){
+    			if(temp[nums[i]] === true){
+    				continue;
+    			}else{
+    				temp[nums[i]] = true;
+    				rtn.push(nums[i]);
+    				shenduyouxian(rtn,temp);
+    				let a =rtn.pop();
+    				temp[a] = false;
+    			}
+    		}
+    	}
+    }
+    return rtnall;
+};
