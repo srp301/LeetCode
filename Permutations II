@@ -1,0 +1,50 @@
+Permutations II:
+Given a collection of numbers that might contain duplicates, return all possible unique permutations.
+
+For example,
+[1,1,2] have the following unique permutations:
+[
+  [1,1,2],
+  [1,2,1],
+  [2,1,1]
+]
+分析：
+	这一题和Permutation很像，唯一的区别就是在输入的元素中多了重复元素，在算法的进程中的每一轮除了不能加入之前出现过的元素之外，还不能加入本轮搜索
+	中出现过的元素。如何判断哪些元素本轮出现过呢？我们加过一个数字并搜索后，在这一轮中把剩余的重复数字都跳过就行了，保证每一轮只有一个unique的数字
+	出现。举个例子，[1,1,1,1,2,3]，在循环过程中，当第一个1循环结束之后，rtn把第一个1推出栈，第一个1标记为false，如果我们不进行41行的判断的话，
+	结果就是把第二个1给推入栈，标记为true，这个刚才第一个1的循环过程一模一样，最终的输出数组中就是会有两个一样的元素。
+
+Solution:
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permuteUnique = function(nums) {
+    nums = nums.sort();
+    let rtnall = [];
+    let rtn = [];
+    let temp = {};
+    shenduyouxian(rtn,temp);
+    function shenduyouxian(rtn,temp){
+        if(rtn.length === nums.length){
+            let rtn1 = rtn.concat();
+            rtnall.push(rtn1);
+        }else{
+            for(let i = 0;i<nums.length;i++){
+                if(temp[i] === true){
+                    continue;
+                }else{
+                    temp[i] = true;
+                    rtn.push(nums[i]);
+                    shenduyouxian(rtn,temp);
+                    rtn.pop();
+                    temp[i] = false;
+                    while(i<nums.length-1 && nums[i]===nums[i+1]){
+                        i++;
+                    }
+                }
+            }
+        }
+    }
+    return rtnall;
+};
