@@ -6,6 +6,9 @@ Rotate the image by 90 degrees (clockwise).
 Follow up:
 Could you do this in-place?
 
+分析：
+	这一题比较简单。注意好矩阵的单复数阶的差别就行。
+
 Solution:
 /**
  * @param {number[][]} matrix
