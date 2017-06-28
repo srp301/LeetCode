@@ -32,14 +32,14 @@ var permute = function(nums) {
     		rtnall.push(rtn1);
     	}else{
     		for(let i = 0;i<nums.length;i++){
-    			if(temp[nums[i]] === true){
+    			if(temp[i] === true){
     				continue;
     			}else{
-    				temp[nums[i]] = true;
+    				temp[i] = true;
     				rtn.push(nums[i]);
     				shenduyouxian(rtn,temp);
-    				let a =rtn.pop();
-    				temp[a] = false;
+    				rtn.pop();
+    				temp[i] = false;
     			}
     		}
     	}
