@@ -1,0 +1,39 @@
+Pow(x, n):
+Implement pow(x, n).
+
+分析：
+	题目给的测试用例的n只会是整数，但是会是正数或者负数。
+Solution1:
+/**
+ * @param {number} x
+ * @param {number} n
+ * @return {number}
+ */
+var myPow = function(x, n) {
+    if(x === 1){
+        return 1;
+    }
+    if(n<0){
+        return 1/Pow(x,-n);
+    }
+    return Pow(x,n);
+    function Pow(x,n){
+        if(n === 0) return 1;
+        let temp = Pow(x,parseInt(n/2));
+        if(n%2===0){
+            return temp*temp;
+        }else{
+            return temp*temp*x;
+        }
+    }
+};
+
+Solution2:
+/**
+ * @param {number} x
+ * @param {number} n
+ * @return {number}
+ */
+var myPow = function(x, n) {
+    return Math.pow(x,n);   
+};
