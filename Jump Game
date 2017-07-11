@@ -1,0 +1,33 @@
+Jump Game:
+Given an array of non-negative integers, you are initially positioned at the first index of the array.
+
+Each element in the array represents your maximum jump length at that position.
+
+Determine if you are able to reach the last index.
+
+For example:
+A = [2,3,1,1,4], return true.
+
+A = [3,2,1,0,4], return false.
+
+分析:
+	用“局部最优和全局最优解法”。我们维护一个到目前为止能跳到的最远距离，以及从当前一步出发能跳到的最远距离。局部最优local=A[i]+i，
+	而全局最优则是global=Math.max(global, local)。递推式出来了，代码就比较容易实现了。因为只需要一次遍历时间复杂度是O(n)，而空
+	间上是O(1)。
+
+Solution:
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var canJump = function(nums) {
+    let reach =0;
+   for(let i = 0;i<nums.length && i<=reach;i++){
+       reach = Math.max(nums[i]+i,reach);
+   }
+    if(reach >= nums.length-1){
+        return true;
+    }else{
+        return false;
+    }
+};
