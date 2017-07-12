@@ -1,0 +1,51 @@
+Spiral Matrix II:
+Given an integer n, generate a square matrix filled with elements from 1 to n2 in spiral order.
+
+For example,
+Given n = 3,
+
+You should return the following matrix:
+[
+ [ 1, 2, 3 ],
+ [ 8, 9, 4 ],
+ [ 7, 6, 5 ]
+]
+
+分析：
+ Spiral Matrix这道题的逆运算。由于给定矩形是个正方形，我们计算环数时用n/2来计算，若n为奇数时，此时最中间的那个点没有被算在环数里，
+ 所以最后需要单独赋值，还是下标转换问题是难点。
+
+Solution:
+/**
+ * @param {number} n
+ * @return {number[][]}
+ */
+var generateMatrix = function(n) {
+    if(n === 0){
+        return [];
+    }
+    let val = 1;
+    let rtnall = [];
+    for(let i = 0;i<n;i++){
+        let array = [];
+        rtnall.push(array);
+    }
+    for(let i = 0;i<parseInt(n/2);i++){
+        for(let col = i;col<n-i;col++){
+            rtnall[i][col] = val++;
+        }
+        for(let row = i+1;row<n-i;row++){
+            rtnall[row][n-i-1] = val++;
+        }
+        for(let col_reverse = n-i-2;col_reverse>=i;col_reverse--){
+            rtnall[n-i-1][col_reverse] = val++;
+        }
+        for(let row_reverse = n-i-2;row_reverse>i;row_reverse--){
+            rtnall[row_reverse][i] = val++;
+        }
+    }
+    if(n%2 !== 0){
+        rtnall[(n+1)/2-1][(n+1)/2-1] = val++;
+    }
+    return rtnall;
+};
