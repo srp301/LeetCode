@@ -1,0 +1,37 @@
+Length of Last Word:
+Given a string s consists of upper/lower-case alphabets and empty space characters ' ', return the length of last word in the string.
+
+If the last word does not exist, return 0.
+
+Note: A word is defined as a character sequence consists of non-space characters only.
+
+For example, 
+Given s = "Hello World",
+return 5.
+
+分析：
+从后往前遍历，到空格的时候判断长度是否为0，为0的话就是末尾是空格的情况，例如'abcd    '，不为0的话是已经遍历到一个单词了，例如'hello world   '。
+
+Solution:
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLastWord = function(s) {
+    if(s.length === 0){
+        return 0;
+    }
+    let len = s.length-1;
+    let rtnlen = 0;
+    while(len>=0){
+        if(s.charAt(len) === ' '){
+            if(rtnlen !== 0){
+                return rtnlen;
+            }
+        }else{
+            rtnlen++;
+        }
+        len--;
+    }
+    return rtnlen;
+};
